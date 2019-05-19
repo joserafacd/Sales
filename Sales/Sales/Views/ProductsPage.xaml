@@ -2,19 +2,34 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              BindingContext="{Binding Main, Source={StaticResource Locator}}"
+             Title="Products"
              x:Class="Sales.Views.ProductsPage">
     <ContentPage.Content>
         <StackLayout
+            Padding="5"
             BindingContext="{Binding Products}">
-            <ListView ItemsSource="{Binding Products}">
+            <ListView ItemsSource="{Binding Products}"
+                      IsRefreshing="{Binding IsRefreshing}"
+                      IsPullToRefreshEnabled="True"
+                      RefreshCommand="{Binding RefreshCommand}"
+                      HasUnevenRows="True">
                 <ListView.ItemTemplate>
                     <DataTemplate>
                         <ViewCell>
                             <Grid>
                                 <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="2*" />
                                     <ColumnDefinition Width="*" />
                                 </Grid.ColumnDefinitions>
+                                <Label
+                                    FontAttributes="Bold"
+                                    Grid.Column="0" 
+                                    Text="{Binding Description}" />
+                                <Label
+                                    HorizontalOptions="End"
+                                    Grid.Column="1"
+                                    Text="{Binding Price, StringFormat='{0:C2}'}"
+                                    />
                             </Grid>
                         </ViewCell>
                     </DataTemplate>
